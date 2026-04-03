@@ -21,20 +21,21 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* Grain overlay — paper texture */
+    /* Grain overlay — heavy paper texture */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.18;
       pointer-events: none;
       z-index: 999;
+      mix-blend-mode: multiply;
     }
 
     body {
       font-family: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
-      background: #EDE7D5;
+      background: #E8DFC4;
       color: #1A1108;
       min-height: 100vh;
       display: flex;
@@ -73,13 +74,13 @@
       color: #EDE7D5;
       padding: 4px 12px;
       display: inline-block;
-      transform: rotate(1deg);
+      transform: rotate(2.5deg);
     }
 
     /* ── Rules ── */
     .rule {
       border: none;
-      border-top: 2.5px solid #1A1108;
+      border-top: 3px solid #1A1108;
       margin-bottom: 28px;
     }
 
