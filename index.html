@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Free Finger Training Guide – Kaizen Climbing</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-96BC5VE8B1"></script>
   <script>
@@ -12,276 +17,267 @@
     gtag('js', new Date());
     gtag('config', 'G-96BC5VE8B1');
   </script>
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    /* Grain overlay — paper texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 999;
+    }
+
     body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background: #0a0a0a;
-      color: #fff;
+      font-family: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+      background: #EDE7D5;
+      color: #1A1108;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 48px 24px;
     }
 
     .page {
       width: 100%;
-      max-width: 960px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
+      max-width: 560px;
     }
 
-    /* LEFT */
-    .left__tag {
-      display: inline-block;
-      background: #e63c2f;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 2px;
+    /* ── Masthead ── */
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 20px;
     }
 
-    .left__headline {
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
+    .masthead__brand {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #7A6A50;
     }
 
-    .left__headline span { color: #e63c2f; }
+    .masthead__badge {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      background: #C4421A;
+      color: #EDE7D5;
+      padding: 4px 12px;
+      display: inline-block;
+      transform: rotate(1deg);
+    }
 
-    .left__sub {
+    /* ── Rules ── */
+    .rule {
+      border: none;
+      border-top: 2.5px solid #1A1108;
+      margin-bottom: 28px;
+    }
+
+    .rule--thin {
+      border: none;
+      border-top: 1px solid #C4B89A;
+      margin: 28px 0;
+    }
+
+    /* ── Headline ── */
+    .headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(68px, 14vw, 112px);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+      margin-bottom: 22px;
+    }
+
+    .headline em {
+      color: #C4421A;
+      font-style: normal;
+    }
+
+    /* ── Body copy ── */
+    .deck {
       font-size: 17px;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.6;
-      margin-bottom: 32px;
-      max-width: 420px;
+      font-weight: 500;
+      line-height: 1.65;
+      color: #3D2E18;
     }
 
+    /* ── Feature list ── */
     .features {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 36px;
+      gap: 11px;
     }
 
     .features li {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 15px;
-      color: rgba(255,255,255,0.8);
+      gap: 14px;
+      font-size: 16px;
       font-weight: 500;
-    }
-
-    .features li::before {
-      content: '✓';
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 20px;
-      height: 20px;
-      min-width: 20px;
-      background: #e63c2f;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 800;
-      border-radius: 50%;
-    }
-
-    .proof {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .proof__icon {
-      font-size: 20px;
-    }
-
-    .proof__text {
-      font-size: 13px;
-      color: rgba(255,255,255,0.4);
+      color: #2A1E0E;
       line-height: 1.4;
     }
 
-    .proof__text strong {
-      color: rgba(255,255,255,0.7);
-    }
-
-    /* RIGHT */
-    .right {
-      background: #111;
-      border: 1px solid #1e1e1e;
-      border-radius: 12px;
-      padding: 40px;
-    }
-
-    .right__eyebrow {
-      font-size: 11px;
+    .features li::before {
+      content: '—';
+      color: #C4421A;
       font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #e63c2f;
-      margin-bottom: 10px;
+      flex-shrink: 0;
     }
 
-    .right__heading {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin-bottom: 8px;
-    }
-
-    .right__sub {
-      font-size: 14px;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.6;
-      margin-bottom: 28px;
-    }
-
+    /* ── Form ── */
     .form {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .form input {
+    .form input[type="email"] {
       width: 100%;
       padding: 15px 16px;
-      background: #1a1a1a;
-      border: 1px solid #252525;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 15px;
+      background: #F5F0E3;
+      border: 2px solid #1A1108;
+      border-radius: 0;
+      color: #1A1108;
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
     }
 
-    .form input::placeholder { color: rgba(255,255,255,0.25); }
-    .form input:focus { border-color: #e63c2f; }
+    .form input::placeholder { color: #A0906F; }
+    .form input:focus { border-color: #C4421A; }
 
     .form button {
       width: 100%;
-      padding: 16px;
-      background: #e63c2f;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      border: none;
-      border-radius: 8px;
+      padding: 17px;
+      background: #1A1108;
+      color: #EDE7D5;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 0.08em;
+      border: 2px solid #1A1108;
+      border-radius: 0;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
 
-    .form button:hover { background: #cf3326; }
-    .form button:active { transform: scale(0.98); }
-    .form button:disabled { background: #555; cursor: not-allowed; }
+    .form button:hover  { background: #C4421A; border-color: #C4421A; }
+    .form button:active { opacity: 0.85; }
+    .form button:disabled {
+      background: #8B7A5E;
+      border-color: #8B7A5E;
+      cursor: not-allowed;
+    }
 
     .form__privacy {
       font-size: 12px;
-      color: rgba(255,255,255,0.3);
-      text-align: center;
-      line-height: 1.5;
+      letter-spacing: 0.05em;
+      color: #8B7A5E;
     }
 
-    /* Success state */
+    .form__error {
+      font-size: 13px;
+      font-weight: 600;
+      color: #C4421A;
+      display: none;
+    }
+
+    /* ── Proof ── */
+    .proof {
+      font-size: 13px;
+      font-style: italic;
+      color: #7A6A50;
+      line-height: 1.55;
+    }
+
+    .proof strong {
+      font-style: normal;
+      color: #2A1E0E;
+    }
+
+    /* ── Success ── */
     .success {
       display: none;
+      padding: 28px 0;
       text-align: center;
-      padding: 20px 0;
-    }
-
-    .success__icon {
-      font-size: 48px;
-      margin-bottom: 16px;
     }
 
     .success__title {
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 8px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      line-height: 1;
+      color: #C4421A;
+      margin-bottom: 14px;
     }
 
     .success__text {
-      font-size: 14px;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.6;
+      font-size: 16px;
+      color: #3D2E18;
+      line-height: 1.65;
     }
 
-    /* Error */
-    .form__error {
-      font-size: 13px;
-      color: #e63c2f;
-      text-align: center;
-      display: none;
-    }
-
-    /* Mobile */
-    @media (max-width: 720px) {
-      .page { grid-template-columns: 1fr; gap: 40px; }
-      body { padding: 30px 20px; align-items: flex-start; }
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      body { padding: 32px 20px; justify-content: flex-start; }
     }
   </style>
 </head>
 <body>
   <div class="page">
 
-    <!-- LEFT -->
-    <div class="left">
-      <span class="left__tag">Free Guide</span>
-      <h1 class="left__headline">Most climbers train their fingers <span>wrong.</span></h1>
-      <p class="left__sub">Here's the evidence-based method that actually builds finger strength — without the guesswork or injury risk.</p>
-
-      <ul class="features">
-        <li>The right warm-up (most climbers skip this)</li>
-        <li>Exact sets, reps, rest times &amp; load</li>
-        <li>How to progress week by week</li>
-      </ul>
-
-      <div class="proof">
-        <span class="proof__icon">🧗</span>
-        <p class="proof__text">From <strong>Buster Martin</strong> — climbing coach &amp; creator with <strong>6,000+ athletes</strong> using this method</p>
-      </div>
+    <div class="masthead">
+      <span class="masthead__brand">Kaizen Climbing</span>
+      <span class="masthead__badge">Free Download</span>
     </div>
 
-    <!-- RIGHT -->
-    <div class="right">
-      <p class="right__eyebrow">Free Finger Training Guide</p>
-      <h2 class="right__heading">Get stronger fingers. Climb harder.</h2>
-      <p class="right__sub">Enter your email and I'll send it straight to your inbox.</p>
+    <hr class="rule">
 
-      <form class="form" id="signupForm">
-        <input type="email" id="emailInput" placeholder="Your email address" required />
-        <button type="submit" id="submitBtn">Send Me the Guide →</button>
-        <p class="form__error" id="errorMsg">Something went wrong. Please try again.</p>
-        <p class="form__privacy">No spam. Unsubscribe anytime.</p>
-      </form>
+    <h1 class="headline">Most climbers train their fingers <em>wrong.</em></h1>
 
-      <div class="success" id="successMsg">
-        <div class="success__icon">🎉</div>
-        <p class="success__title">Check your inbox!</p>
-        <p class="success__text">The guide is on its way. If you don't see it in a few minutes, check your spam folder.</p>
-      </div>
+    <p class="deck">Here's the evidence-based method that actually builds finger strength — without the guesswork or injury risk.</p>
+
+    <hr class="rule--thin">
+
+    <ul class="features">
+      <li>The right warm-up (most climbers skip this)</li>
+      <li>Exact sets, reps, rest times &amp; load</li>
+      <li>How to progress week by week without injury</li>
+    </ul>
+
+    <hr class="rule--thin">
+
+    <form class="form" id="signupForm">
+      <input type="email" id="emailInput" placeholder="Your email address" required />
+      <button type="submit" id="submitBtn">Send Me the Guide</button>
+      <p class="form__error" id="errorMsg">Something went wrong — please try again.</p>
+      <p class="form__privacy">No spam. Unsubscribe anytime.</p>
+    </form>
+
+    <div class="success" id="successMsg">
+      <p class="success__title">Check your inbox.</p>
+      <p class="success__text">The guide is on its way. If you don't see it in a few minutes, check your spam folder.</p>
     </div>
+
+    <hr class="rule--thin">
+
+    <p class="proof">From <strong>Buster Martin</strong> — climbing coach &amp; creator with <strong>6,000+ athletes</strong> using this method.</p>
 
   </div>
 
   <script>
-    // Clean path slug → Brevo List ID
-    // e.g. fingerliftingguide.kaizenclimbing.co.uk/qanda → List 11
     const SLUG_MAP = {
       'qanda':      { listId: 11, source: 'youtube',   medium: 'video' },
       'hangboard':  { listId: 8,  source: 'youtube',   medium: 'video' },
@@ -294,14 +290,11 @@
 
     const MAIN_LIST_ID = 5;
 
-    // ── Google Sheets backup ──────────────────────────────────────────────────
-    // 1. Open flg-sheets-backup.gs, follow the 3-step deploy instructions
-    // 2. Paste your Web App URL below (looks like: https://script.google.com/macros/s/...)
+    // Paste your Google Apps Script URL here once deployed
     const SHEETS_URL = '';
 
-    function backupToSheets(email, utm) {
+    function backupToSheets(email, tracking) {
       if (!SHEETS_URL) return;
-      // no-cors: can't read response but the write still lands in the sheet
       fetch(SHEETS_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -309,30 +302,23 @@
         body: JSON.stringify({
           timestamp:   new Date().toISOString(),
           email,
-          utm_source:  utm.source,
-          utm_medium:  utm.medium,
-          utm_content: utm.content,
+          utm_source:  tracking.source,
+          utm_medium:  tracking.medium,
+          utm_content: tracking.content,
         })
-      }).catch(() => {}); // silent — Brevo is the source of truth
+      }).catch(() => {});
     }
 
     function getTracking() {
-      // 1. Try clean path slug first: /qanda, /hangboard, etc.
       const slug = window.location.pathname.replace(/\//g, '').toLowerCase();
       if (slug && SLUG_MAP[slug]) {
         const s = SLUG_MAP[slug];
         return { source: s.source, medium: s.medium, content: slug, listId: s.listId };
       }
-      // 2. Fall back to UTM params (backwards compatible)
       const p = new URLSearchParams(window.location.search);
       const content = p.get('utm_content') || '';
       const listId  = content && SLUG_MAP[content] ? SLUG_MAP[content].listId : null;
-      return {
-        source:  p.get('utm_source')  || '',
-        medium:  p.get('utm_medium')  || '',
-        content,
-        listId,
-      };
+      return { source: p.get('utm_source') || '', medium: p.get('utm_medium') || '', content, listId };
     }
 
     function getListIds(listId) {
@@ -384,7 +370,7 @@
       } catch (err) {
         errorEl.style.display = 'block';
         btn.disabled    = false;
-        btn.textContent = 'Send Me the Guide →';
+        btn.textContent = 'Send Me the Guide';
       }
     });
   </script>
