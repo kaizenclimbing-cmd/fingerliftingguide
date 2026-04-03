@@ -17,23 +17,38 @@ exports.handler = async (event) => {
   const { email, attributes } = JSON.parse(event.body);
   const slug = (attributes && attributes.UTM_CONTENT) || '';
 
-  const segmentIds = [MAIN_SEGMENT];
-  if (SEGMENT_MAP[slug]) segmentIds.push(SEGMENT_MAP[slug]);
+  const [flodeskResult, supabaseResult] = await Promise.allSettled([
+    // Flodesk
+    (async () => {
+      const segmentIds = [MAIN_SEGMENT];
+      if (SEGMENT_MAP[slug]) segmentIds.push(SEGMENT_MAP[slug]);
+      const creds = Buffer.from(`${process.env.FLODESK_API_KEY}:`).toString('base64');
+      return fetch('https://api.flodesk.com/v1/subscribers', {
+        method: 'POST',
+        headers: { 'Authorization': `Basic ${creds}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, segment_ids: segmentIds }),
+      });
+    })(),
 
-  const creds = Buffer.from(`${process.env.FLODESK_API_KEY}:`).toString('base64');
-  const res = await fetch('https://api.flodesk.com/v1/subscribers', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Basic ${creds}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, segment_ids: segmentIds }),
-  });
+    // Supabase
+    fetch(`${process.env.SUPABASE_URL}/rest/v1/flg_signups`, {
+      method: 'POST',
+      headers: {
+        'apikey': process.env.SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({ email, slug: slug || null }),
+    }),
+  ]);
 
-  if (res.ok) {
+  const flodeskOk = flodeskResult.status === 'fulfilled' && [200, 201].includes(flodeskResult.value.status);
+  const supabaseOk = supabaseResult.status === 'fulfilled' && supabaseResult.value.status === 201;
+
+  if (flodeskOk || supabaseOk) {
     return { statusCode: 200, body: JSON.stringify({ success: true }) };
   } else {
-    const text = await res.text();
-    return { statusCode: 500, body: JSON.stringify({ error: text }) };
+    return { statusCode: 500, body: JSON.stringify({ error: 'All platforms failed' }) };
   }
 };
