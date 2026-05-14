@@ -14,7 +14,7 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  const { email, attributes } = JSON.parse(event.body);
+  const { email, name, attributes } = JSON.parse(event.body);
   const slug = (attributes && attributes.UTM_CONTENT) || '';
 
   const [flodeskResult, supabaseResult] = await Promise.allSettled([
@@ -26,7 +26,7 @@ exports.handler = async (event) => {
       return fetch('https://api.flodesk.com/v1/subscribers', {
         method: 'POST',
         headers: { 'Authorization': `Basic ${creds}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, segment_ids: segmentIds }),
+        body: JSON.stringify({ email, first_name: name || '', segment_ids: segmentIds }),
       });
     })(),
 

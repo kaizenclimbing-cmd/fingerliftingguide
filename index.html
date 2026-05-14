@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Finger Training Guide – Kaizen Climbing</title>
+  <title>I Just Climbed 9b – Free Finger Training Guide</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -143,6 +143,7 @@
       gap: 10px;
     }
 
+    .form input[type="text"],
     .form input[type="email"] {
       width: 100%;
       padding: 15px 16px;
@@ -241,14 +242,14 @@
 
     <div class="masthead">
       <span class="masthead__brand">Kaizen Climbing</span>
-      <span class="masthead__badge">Free Download</span>
+      <span class="masthead__badge">Free Guide</span>
     </div>
 
     <hr class="rule">
 
-    <h1 class="headline">Most climbers train their fingers <em>wrong.</em></h1>
+    <h1 class="headline">I just climbed <em>9b.</em></h1>
 
-    <p class="deck">Here's the evidence-based method that actually builds finger strength — without the guesswork or injury risk.</p>
+    <p class="deck">Here's the finger training guide I used to get there — free. The exact method, no fluff.</p>
 
     <hr class="rule--thin">
 
@@ -261,6 +262,7 @@
     <hr class="rule--thin">
 
     <form class="form" id="signupForm">
+      <input type="text" id="nameInput" placeholder="Your first name" required />
       <input type="email" id="emailInput" placeholder="Your email address" required />
       <button type="submit" id="submitBtn">Send Me the Guide</button>
       <p class="form__error" id="errorMsg">Something went wrong — please try again.</p>
@@ -274,7 +276,7 @@
 
     <hr class="rule--thin">
 
-    <p class="proof">From <strong>Buster Martin</strong> — climbing coach &amp; creator with <strong>6,000+ athletes</strong> using this method.</p>
+    <p class="proof">From <strong>Buster Martin</strong> — just climbed <strong>9b</strong>, and coaching <strong>6,000+ athletes</strong> with this method.</p>
 
   </div>
 
@@ -331,6 +333,7 @@
     document.getElementById('signupForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
+      const name    = document.getElementById('nameInput').value.trim();
       const email   = document.getElementById('emailInput').value.trim();
       const btn     = document.getElementById('submitBtn');
       const errorEl = document.getElementById('errorMsg');
@@ -348,6 +351,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
+            name,
             listIds,
             attributes: {
               UTM_SOURCE:  tracking.source,
